@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>塔罗牌抽牌</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 星空/星尘背景 -->
+  <div class="stars" id="stars" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">✦ 塔罗牌</div>
+    <div class="top-actions">
+      <button id="skinBtn" class="top-btn" type="button">套系 · <span id="skinCurrentName">—</span></button>
+      <button id="settingsBtn" class="top-btn" type="button">设置</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <main class="main">
+    <section class="spread-head">
+      <h1 id="spreadTitle"></h1>
+      <p id="spreadSubtitle" class="subtitle"></p>
+      <div id="questionControls" class="question-controls hidden">
+        <input id="questionInput" type="text" maxlength="100" placeholder="写下你想占卜的问题（可选）">
+      </div>
+      <div id="freeControls" class="free-controls hidden">
+        <label class="fc-item">张数
+          <input id="freeCount" type="number" min="1" max="10" value="3">
+        </label>
+        <label class="fc-item">
+          <input id="freeReversed" type="checkbox" checked> 允许逆位
+        </label>
+      </div>
+    </section>
+
+    <section id="spreadBoard" class="board"></section>
+
+    <section class="actions">
+      <button id="drawBtn" class="btn btn-primary" type="button">开始抽牌</button>
+      <button id="revealAllBtn" class="btn hidden" type="button">全部翻开</button>
+      <button id="reshuffleBtn" class="btn hidden" type="button">重新洗牌</button>
+      <button id="resetBtn" class="btn hidden" type="button">重置牌阵</button>
+    </section>
+
+    <section id="interpretation" class="interpretation hidden">
+      <div class="interp-head">
+        <h2>✦ 占卜结果</h2>
+        <button id="copyResultBtn" class="btn btn-mini" type="button">复制结果</button>
+      </div>
+      <p id="interpretationText"></p>
+    </section>
+  </main>
+
+  <!-- 牌义详情弹窗 -->
+  <div id="cardModal" class="modal">
+    <div class="modal-box modal-wide">
+      <button class="modal-close" type="button" aria-label="关闭">×</button>
+      <div id="cardModalBody"></div>
+    </div>
+  </div>
+
+  <!-- 皮肤管理弹窗 -->
+  <div id="skinModal" class="modal">
+    <div class="modal-box modal-wide">
+      <button class="modal-close" type="button" aria-label="关闭">×</button>
+      <h2>套系管理</h2>
+      <div class="skin-toolbar">
+        <button id="skinNewBtn" class="btn btn-mini" type="button">＋ 新建套系</button>
+        <button id="skinImportBtn" class="btn btn-mini" type="button">导入套系</button>
+        <input id="skinImportFile" type="file" accept=".json,application/json" class="hidden">
+      </div>
+      <div id="skinList" class="skin-list"></div>
+      <h3 class="gallery-title">当前套系牌面图集（点击上传 / 替换）</h3>
+      <div id="skinGallery" class="gallery"></div>
+    </div>
+  </div>
+
+  <!-- 设置弹窗 -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-box modal-small">
+      <button class="modal-close" type="button" aria-label="关闭">×</button>
+      <h2>设置</h2>
+      <label class="setting-row">
+        <input id="setAllowReversed" type="checkbox"> 允许逆位
+      </label>
+      <label class="setting-row">
+        <input id="setAnimations" type="checkbox"> 动画开关
+      </label>
+      <div class="modal-actions">
+        <button id="setSaveBtn" class="btn btn-primary" type="button">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 上传弹窗 -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-box modal-small">
+      <button class="modal-close" type="button" aria-label="关闭">×</button>
+      <h2 id="uploadTitle">上传牌面</h2>
+      <div id="uploadDrop" class="upload-drop">
+        <div id="uploadPreview"></div>
+        <input id="uploadFile" type="file" accept="image/*" class="hidden">
+      </div>
+      <div class="modal-actions">
+        <button id="uploadSaveBtn" class="btn btn-primary" type="button">保存</button>
+        <button id="uploadClearBtn" class="btn" type="button">恢复默认</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data/cards.js"></script>
+  <script src="js/data/spreads.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/skins.js"></script>
+  <script src="js/core/tarot.js"></script>
+  <script src="js/ui/render.js"></script>
+  <script src="js/ui/modal.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
